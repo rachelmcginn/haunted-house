@@ -1,0 +1,353 @@
+import random
+import sys 
+from termcolor import colored
+
+print((colored("""
+ ▄  █ ██     ▄      ▄      ▄▄▄▄▀ ▄███▄   ██▄        ▄  █ ████▄   ▄      ▄▄▄▄▄   ▄███▄   
+█   █ █ █     █      █  ▀▀▀ █    █▀   ▀  █  █      █   █ █   █    █    █     ▀▄ █▀   ▀  
+██▀▀█ █▄▄█ █   █ ██   █     █    ██▄▄    █   █     ██▀▀█ █   █ █   █ ▄  ▀▀▀▀▄   ██▄▄    
+█   █ █  █ █   █ █ █  █    █     █▄   ▄▀ █  █      █   █ ▀████ █   █  ▀▄▄▄▄▀    █▄   ▄▀ 
+   █     █ █▄ ▄█ █  █ █   ▀      ▀███▀   ███▀         █        █▄ ▄█            ▀███▀   
+  ▀     █   ▀▀▀  █   ██                              ▀          ▀▀▀                     
+       ▀                                                 
+""", "red")))
+
+print(colored('[Press return to navigate through dialogue.]', 'grey'))
+print()
+
+user_health = 3
+rolling_pin = 0
+game = True
+
+def game_over():
+	"""Displays message when user has lost the game, and ends the game"""
+	global game
+	print(colored("GAME OVER", "red"))
+	game = False
+	return game
+
+def game_win():
+	"""Displays message when the user has won the game, and ends the game"""
+	global game
+	print("The beast hisses in agony and collapses.. you did it. You actually killed a giant spider.. somehow.\nYou run for the exit and don't dare look back.\nCONGRATULATIONS, YOU SURVIVED!")
+	game = False
+	return game
+
+def get_next_line():
+	"""Prompts user to press return for the next line in the game"""
+	next_line = input("> ")	
+
+
+def choose_key():
+	"""Prompts user to choose key in first room"""
+	print("You wake up in a dark room, unable to remember how you got there.")
+	get_next_line()
+	print("Searching for an escape, you notice 6 keys hanging on the wall.")
+	print()
+	print("1 - A long, sturdy looking silver key")
+	print("2 - A spindly key with strange writing etched into it")
+	print("3 - A small pewter key, light as a feather")
+	print("4 - A rusted old key with a battered bow")
+	print("5 - A hefty bronze key, covered in dust")
+	print("6 - A shiny golden key adorned with metallic flowers")
+	print()
+	key_tries = 0
+	correct_key = "4"
+
+
+	while True:
+		key_guess = input("Which key should I try? > ")
+		print()
+		if key_tries > 2:
+			print("You try to grab for the next key, but it turns to ash in your finger tips. You frantically grab another, and another, until your only hope of escape lies in a pile at your feet.")
+			print()
+			print("Will you ever get out of here?...") 
+			print()
+			game_over()
+			break
+		elif key_guess not in "123456":
+			print("Error. Choose a number from 1 - 6.")
+			print()
+		elif key_guess == correct_key:
+			print("A wave of relief washes over you as the lock clicks and the door opens.")
+			print()
+			break
+		elif key_guess != correct_key:
+			print("The door won't budge. Try again.")
+			key_tries += 1
+
+
+def corridor():
+	"""Prompts user to choose a new room to enter"""
+	print("The heavy door slams behind you, leaving you alone in a long candle lit corridor.")
+	get_next_line()
+	print("As your eyes adjust to the light, you notice a myriad of paintings hanging on the walls.")
+	get_next_line()
+	print("The eyes of each portrait seem to follow you as you make your way down the hall, breaking into massive grins if you gaze back for long enough. Your pace quickens.")
+	get_next_line()
+	print("Reaching the end of the hall, you are met with two doors. Though muffled through the heavy oak, you can hear sound coming from both.")
+	get_next_line()
+	print("Pressing your ear to each door, you hear:")
+	print("To your left - What sounds like a woman humming. ")
+	print("To your right - Fiddles playing lively over loud conversation and ceaseless laughter.")
+	print()
+	while True: 
+		corridor_choice = input("Which way do you choose? (L/R) > ").lower()
+		print()
+		if corridor_choice == "r":
+			print("You proceed through the door quickly, eager to avoid any more meaningful gazes from the paintings.")
+			break
+		elif corridor_choice == "l": 
+			print("The door opens to room empty, except for a young woman with long dark hair with her back to you, humming cheerfully and painting at her easel.")
+			get_next_line()
+			print(""""Excuse me, miss?" You say, stepping closer.""")
+			get_next_line()
+			print("Her humming stops as her head turns independently all the way around to face you, grinning.")
+			get_next_line()
+			print(""""You’re just in time to get your portrait painted!" She says gleefully, her smile so big it almost reaches the place where her eyes are supposed to be.""")
+			get_next_line()
+			print("She draws closer, paintbrush in hand, and you find yourself unable to move.")
+			print("...")
+			get_next_line
+			print("You live in the portrait hall now, hung on the wall amongst the other portraits. You've long ceased trying to find a way out. Instead you join in with the others, grinning dutifully at the passers by.")
+			print("This is your home now. And it always will be.")
+			print()
+			game_over()
+			break
+		else:
+			print("Error. Try again")
+			print()
+
+
+def dining_room():
+	"""Prompts user to make a choices in the dining room"""
+	print()
+	print("As soon as you enter, all sounds of music and laughter cease. Before you is a grand dining room with a ceiling as high as a cathedral.")
+	get_next_line()
+	print("The table stretches endlessly, piled high with a freshly prepared feast complete with several roasts, exotic cheeses, fine wine, and pies still piping hot from the oven.")
+	get_next_line()
+	print("Your mouth waters and your stomach grumbles. You can’t remember the last time you ate or drank anything, or how long you’ve been here, for that matter. ")
+	print()
+	
+	while True:
+		dining_room_choice = input("Eat something? (Y/N) > ").lower()
+		print()
+		if dining_room_choice == 'y': 
+			print("Who knows how long you’ve been here? You need to keep your strength up if you’re going to escape.")
+			get_next_line()
+			print("You begin feasting with reckless abandon. You've never tasted food so good in your life.")
+			print("On and on your personal feast goes, to the point where you feel you might burst.") 
+			get_next_line()
+			print("You try to put your fork down but your hand continues to graps it, and you continue to eat in pure agony.")
+			get_next_line()
+			print("Unable to stop, you do, well,... burst.")
+			print()
+			game_over()
+			break
+		elif dining_room_choice == 'n':
+			print("As tempting as it is, you fight the urge to dig in. It’s best to keep moving.")
+			break
+		else:
+			print("Error. Try again.")
+			print()
+
+
+def kitchen():
+	"""Prompts user to choose whether or not they enter the kitchen"""
+	print()
+	print("You make a beeline for the doors on the opposite side of the room. As you pass the roaring fire goes out within an instant. ")
+	get_next_line()
+	print("Before you open the doors of the study, you notice a banging coming from the kitchen.")
+	print()
+	get_next_line()
+	
+	while True:
+		kitchen_choice = input("Investigate? (Y/N) > ").lower()
+		print()
+		if kitchen_choice == "y":
+			print("You step onto the checkered tile floor of the kitchen. There is a pot or pan on every burner, everything bubbling and sizzling ferociously, but no cook in sight.")
+			get_next_line()
+			print("You follow the sound of the banging deep into the back of the kitchen, the banging getting more and more urgent.")
+			get_next_line()
+			print("At the very back of the kitchen you spot the source of the banging, the cook’s cupboard. You approach with caution, but suddenly, the cupboard’s doors pop open. Inside is a single steel rolling pin.")
+			get_next_line()
+			print("You pick it up, sensing it could come in handy, and make your way to the study.")
+			global rolling_pin
+			rolling_pin += 1
+			break
+		elif kitchen_choice == "n":
+			print("As the noise in the kitchen grows louder, you quickly make your way into the study.")
+			get_next_line()
+			break
+		else:
+			print("Error. Try again.")
+			print()
+
+
+def study(): 
+	"""Prompts user to make a choice in order to move on to next room"""
+	print()
+	print("A strong odor of old books hits you as you enter. Searching for a way out of here, you begin weaving through the maze of massive bookcases.") 
+	get_next_line()
+	print("You happen upon three books that call to you--the only three books not caked in dust and spider webs:")
+	print("1- A red book with gold enameling")
+	print("2- A brown book with ribbed binding")
+	print("3- A blue book with a frayed spine")
+	print()
+
+	while True:
+		study_choice = input("Which book do you pull out? > ")
+		print()
+		if study_choice == '3':
+			print("You slip through the secret passage, feel the contraption make a few revolutions suddenly find yourself stumbling into the foyer.")
+			break
+		elif study_choice == '1':
+			print("You pull the book out and the bookcase begins to spin, then descend. Your stomach turns as you drop down, down, down...")
+			get_next_line()
+			print("Finally the contraption lets you out, sick and stumbling, into the boiler room.")
+			get_next_line()
+			print("Stepping into the room, something instantly feels wrong.")
+			get_next_line()
+			print("The room, as if aware of your presence, begins rapidly filling with burning hot steam.")
+			get_next_line()
+			print("You search for an exit but can't see a thing, nor keep your eyes open for any amount of time without immense pain.")
+			get_next_line()
+			print("Senseless in agony, you run searching for an exit, eventually, mercifully, hitting your head and falling unconscious.")
+			print()
+			print("At least the pain is over now.") 
+			print()
+			game_over()
+			break
+		elif study_choice == '2':
+			print("You reach for the brown book. As soon as you make contact with the book, you feel teeth sink into your skin.")
+			get_next_line()
+			print("With agonizing haste, you wrest your hand out of the jaws of the accursed object.")
+			get_next_line()
+			print("Examining your hand, you're thankful you only lost a few fingers...")
+			global user_health
+			user_health -= 1
+			print(f"Health remaining: {user_health}/3.")
+			print()
+		else:
+			print("Error. Choose a number from 1 - 3.")
+			print()
+
+
+def foyer():
+	"""Commences boss fight"""
+	print()
+	print("Moonlight streams weakly through the dirty skylight above, illuminating the crystal chandelier above the front door, just beyond the grand staircase.")
+	get_next_line()
+	print("You feel it’s about time to make your grand exit.")
+	get_next_line()
+	print("Heading eagerly for the door, you stop dead in your tracks as something huge and dark descends from the ceiling...")
+	get_next_line()
+	print(""""IT'S IMPOLITE TO LEAVE WITHOUT SAYING GOODBYE," Hisses the creature in a sickening metallic voice.""")
+	get_next_line()
+	print("Is that a... \nGiant spider?")
+	get_next_line()
+	print()
+	print(colored("The Black Widow wants to fight...", "red"))
+
+	enemy_health = 6
+	global user_health
+	global rolling_pin
+	defeat_message = "Unable to go on, you collapse.\nThe Black Widow hisses in delight as she begins wrapping you in silk.\nAt least you fought the good fight..."
+	
+	if rolling_pin == 1:
+		print()
+		print("Staring up at the gnarled, drooling face of the beast, you gingerly pull the rolling pin out of your back pocket.")
+		get_next_line()
+		print("Well. It's not a rocket launcher. But It's better than nothing.")
+		user_health += 3
+		print(colored(f"[+3 Armour for your resourcefulness.]", "green"))
+		print(f"[Health remaining: {user_health}/3]")
+		print()
+		
+		
+	while (user_health > 0) and (enemy_health > 0):
+		if user_health == 0:
+			print(defeat_message)
+			game_over()
+		elif enemy_health == 0:
+			game_win()
+		
+		input(colored("[Press return to attack] > ", "grey"))
+		print()
+
+ 
+		if rolling_pin == 1:
+			user_hit_miss = random.randint(1, 2)
+			print("You brandish your rolling pin threateningly...")
+			get_next_line()
+			if user_hit_miss == 1:
+				enemy_health -= 1
+				print("You hit The Black Widow!")
+
+				print(f"Enemy health: {enemy_health}/6.")
+				get_next_line()
+				print()
+			elif user_hit_miss == 2:
+				print("You missed...")
+				print(f"Enemy health: {enemy_health}/6.")
+				get_next_line()
+				print()
+
+
+		if rolling_pin == 0:
+			print("You attack The Black Widow...")
+			get_next_line()
+			print()
+			user_hit_miss = random.randint(1, 3)
+			if user_hit_miss == 1:
+				enemy_health -= 1
+				print("You hit The Black Widow!")
+				print(f"Enemy health: {enemy_health}/6.")
+				get_next_line()
+				print()
+			else:
+				print("You missed...")
+				print(f"Enemy health: {enemy_health}/6.")
+				get_next_line()
+				print()
+
+
+		if enemy_health > 0:
+			enemy_hit_miss = random.randint(1, 3)
+			print(colored("The Black Widow is attacking.", "red"))
+			get_next_line()
+			print()
+			if enemy_hit_miss == 1:
+				user_health -= 1
+				print("The Black Widow hit you.")
+				print(f"Health remaining: {user_health}/3.")
+				get_next_line()
+				print()
+				if user_health == 0:
+					print(defeat_message)
+					game_over()
+			else:
+				print("She missed... this time.")
+				print(f"Health remaining: {user_health}/3.")
+				print()
+		else:
+			game_win()
+
+
+function_list = [choose_key, corridor, dining_room, kitchen, study, foyer]
+
+while True:
+	for function in function_list:
+		function()
+		if game == False:
+			break
+	print()
+	play_again = input("Play again? (Y/N) > ").lower()
+	if play_again == 'n':
+		print("See you next time.. if you dare.")
+		break
+	else:
+		print(".\n.\n.\n.\n.\n.")
+		game = True
+		continue
+		
